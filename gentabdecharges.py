@@ -13,7 +13,6 @@
 import sys
 import os, shutil
 import argparse
-import re
 
 from openpyxl import *
 
