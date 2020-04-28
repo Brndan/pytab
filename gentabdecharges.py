@@ -5,7 +5,7 @@
 # à partir d’un modèle et d’un fichier composé ainsi :
 # | Syndicat | Quotité proposée |
 # | Ain (01) | 0,567            |
-# | Total    | 2.558            |
+# | Total    | 2,558            |
 
 # Tous les fichiers, en entrée comme en sortie, sont des XLSX.
 
