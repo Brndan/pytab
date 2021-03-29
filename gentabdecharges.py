@@ -93,7 +93,7 @@ def main():
             print("Dossier d’export supprimé")
         except:
             print("Problème lors de la suppression du dossier d’export")
-            os_exit(1)
+            os._exit(1)
     try:
         os.mkdir(export)
         print("Dossier d’export créé")
