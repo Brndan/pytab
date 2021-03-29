@@ -11,24 +11,25 @@
 
 
 import sys
-import os, shutil
+import os
+import shutil
 import argparse
 
-from openpyxl import *
+import openpyxl as xlsx
 
 
-# Fonction qui prend en entrée le fichier donnant les 
+# Fonction qui prend en entrée le fichier donnant les
 # quotités pour tous les syndicats et retourne un
 # dictionnaire
 
 def load_syndicats(fichier_decharges):
     try:
-        quotite_fichier = load_workbook(filename=fichier_decharges)
+        quotite_fichier = xlsx.load_workbook(filename=fichier_decharges)
     except:
-        print("Erreur à l’ouverture du fichier quotité")
+        print("Erreur à l’ouverture du fichier quotité",file=sys.stderr)
         os._exit(1)
-        
-    ## importer les quotités de décharge dans un dictionnaire
+
+    # importer les quotités de décharge dans un dictionnaire
     base_syndicats = {}
     syndicat = quotite_fichier.active
 
@@ -44,11 +45,11 @@ def load_syndicats(fichier_decharges):
 
 
 # Fonction qui prend en argument 4 paramètre :
-# template_fichier → fichier xlsx modèle ouvert 
+# template_fichier → fichier xlsx modèle ouvert
 # dossier_export → dossier dans lequel les fichiers seront exportés
 # nomSyndicat → le nom de chaque structure issu du dictionnaire
 # quotiteSyndicat → la quotité de décharge attribuée au syndicat
-# 
+#
 # À partir de ça : on modifie les deux cellules nécessaires et
 # enregistrement en xlsx avec le bon nom de fichier.
 
@@ -66,13 +67,13 @@ def produit_tableau(template_fichier, dossier_export, nomSyndicat,
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Produire à partir d’un modèle les fichiers de décharge pour tous les syndicat.")
+    parser = argparse.ArgumentParser(
+        description="Produire à partir d’un modèle les fichiers de décharge pour tous les syndicat.")
     parser.add_argument(
         "-q",
         "--quotite",
         action="store",
-        help=
-        "Fichier comprenant la quotité attribuée à chaque syndicat, au format .xlsx",
+        help="Fichier comprenant la quotité attribuée à chaque syndicat, au format .xlsx",
         required=True)
     parser.add_argument("template",
                         action="store",
@@ -80,30 +81,30 @@ def main():
     args = parser.parse_args()
 
     try:
-        template_fichier = load_workbook(filename=args.template)
-        print("Fichier template ouvert")
+        template_fichier = xlsx.load_workbook(filename=args.template)
+        print("Fichier template ouvert",file=sys.stderr)
     except:
-        print("Erreur à l’ouverture du fichier template")
+        print("Erreur à l’ouverture du fichier template",file=sys.stderr)
         os._exit(1)
 
     export = os.path.join(os.getcwd(), 'export')
     if os.path.exists(export):
         try:
             shutil.rmtree(export)
-            print("Dossier d’export supprimé")
+            print("Dossier d’export supprimé",file=sys.stderr)
         except:
-            print("Problème lors de la suppression du dossier d’export")
+            print("Problème lors de la suppression du dossier d’export",file=sys.stderr)
             os._exit(1)
     try:
         os.mkdir(export)
-        print("Dossier d’export créé")
+        print("Dossier d’export créé",file=sys.stderr)
     except:
-        print("Impossible de créer le dossier d’export")
-        os_exit(1)
+        print("Impossible de créer le dossier d’export",file=sys.stderr)
+        os._exit(1)
 
     base_syndicats = load_syndicats(args.quotite)
 
-    # Pour chaque syndicat, on appelle produit_tableau() qui se charge de 
+    # Pour chaque syndicat, on appelle produit_tableau() qui se charge de
     # générer le fichier
     for key in base_syndicats:
         produit_tableau(template_fichier, export, key, base_syndicats[key])
