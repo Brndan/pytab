@@ -8,7 +8,7 @@ Un script python 3 destiné à générer automatiquement les tableaux de déchar
 
 
 
-`python3 gentabdecharges.py -q quotité.xlsx template.xlsx`
+`python3 pytab.py -q quotité.xlsx template.xlsx`
 
 
 
@@ -55,8 +55,8 @@ Pour fonctionner, le programme a besoin d’une version de l’interpréteur pyt
 
 Pour installer les modules :
 
-`pip install module`
+`pip install module` ou `pip install -r requirements.txt`
 
 ## Compilation
 
-Sur sa plateforme, `pyinstaller -F gentabdecharges.py` permet de créer un exécutable.
+Sur sa plateforme, `pyinstaller -F pytab.py` permet de créer un exécutable.
