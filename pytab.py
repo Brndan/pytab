@@ -26,8 +26,7 @@ def load_syndicats(fichier_decharges):
     try:
         quotite_fichier = xlsx.load_workbook(filename=fichier_decharges)
     except:
-        print("Erreur à l’ouverture du fichier quotité",file=sys.stderr)
-        os._exit(1)
+        sys.exit("Erreur à l’ouverture du fichier quotité")
 
     # importer les quotités de décharge dans un dictionnaire
     base_syndicats = {}
@@ -82,25 +81,22 @@ def main():
 
     try:
         template_fichier = xlsx.load_workbook(filename=args.template)
-        print("Fichier template ouvert",file=sys.stderr)
+        print("Fichier template ouvert", file=sys.stderr)
     except:
-        print("Erreur à l’ouverture du fichier template",file=sys.stderr)
-        os._exit(1)
+        sys.exit("Erreur à l’ouverture du fichier template")
 
     export = os.path.join(os.getcwd(), 'export')
     if os.path.exists(export):
         try:
             shutil.rmtree(export)
-            print("Dossier d’export supprimé",file=sys.stderr)
+            print("Dossier d’export supprimé", file=sys.stderr)
         except:
-            print("Problème lors de la suppression du dossier d’export",file=sys.stderr)
-            os._exit(1)
+            sys.exit("Problème lors de la suppression du dossier d’export")
     try:
         os.mkdir(export)
-        print("Dossier d’export créé",file=sys.stderr)
+        print("Dossier d’export créé", file=sys.stderr)
     except:
-        print("Impossible de créer le dossier d’export",file=sys.stderr)
-        os._exit(1)
+        sys.exit("Impossible de créer le dossier d’export")
 
     base_syndicats = load_syndicats(args.quotite)
 
