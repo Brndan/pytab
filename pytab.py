@@ -56,8 +56,8 @@ def produit_tableau(template_fichier, dossier_export, nomSyndicat,
                     quotiteSyndicat):
     fichier_export = nomSyndicat + ".xlsx"
     template = template_fichier.active
-    template["A74"] = nomSyndicat
-    template["B74"] = quotiteSyndicat
+    template["A64"] = nomSyndicat
+    template["B64"] = quotiteSyndicat
     template.protection.sheet = True
     template.protection.password = 'pandace'
     template.protection.enable()
