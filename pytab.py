@@ -69,7 +69,7 @@ def produit_tableau(template_fichier, dossier_export, nom_syndicat,
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Produire à partir d’un modèle les fichiers de décharge pour tous les syndicat.")
+        description="Produire à partir d’un modèle les fichiers de décharge pour tous les syndicats.")
     parser.add_argument(
         "-q",
         "--quotite",
