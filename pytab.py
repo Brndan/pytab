@@ -53,14 +53,15 @@ def load_syndicats(fichier_decharges):
 # enregistrement en xlsx avec le bon nom de fichier.
 
 def produit_tableau(template_fichier, dossier_export, nomSyndicat,
-                    quotiteSyndicat):
+                    quotiteSyndicat, sheet_password):
     fichier_export = nomSyndicat + ".xlsx"
     template = template_fichier.active
     template["A64"] = nomSyndicat
     template["B64"] = quotiteSyndicat
-    template.protection.sheet = True
-    template.protection.password = 'pandace'
-    template.protection.enable()
+    if sheet_password:
+        template.protection.password = sheet_password
+        template.protection.enable()
+        template.protection.sheet = True
     template_fichier.save(
         filename=os.path.join(dossier_export, fichier_export))
 
@@ -74,6 +75,13 @@ def main():
         action="store",
         help="Fichier comprenant la quotité attribuée à chaque syndicat, au format .xlsx",
         required=True)
+    parser.add_argument(
+        "-p",
+        "--password",
+        action="store",
+        help="Mot de passe pour protéger les tableaux générés",
+        required=False
+    )
     parser.add_argument("template",
                         action="store",
                         help="Chemin du fichier modèle au format .xlsx")
@@ -103,7 +111,8 @@ def main():
     # Pour chaque syndicat, on appelle produit_tableau() qui se charge de
     # générer le fichier
     for key in base_syndicats:
-        produit_tableau(template_fichier, export, key, base_syndicats[key])
+        produit_tableau(template_fichier, export, key,
+                        base_syndicats[key], args.password)
 
 
 if __name__ == "__main__":
