@@ -43,21 +43,22 @@ def load_syndicats(fichier_decharges):
     return base_syndicats
 
 
-# Fonction qui prend en argument 4 paramètre :
+# Fonction qui prend en argument 5 paramètres :
 # template_fichier → fichier xlsx modèle ouvert
 # dossier_export → dossier dans lequel les fichiers seront exportés
-# nomSyndicat → le nom de chaque structure issu du dictionnaire
-# quotiteSyndicat → la quotité de décharge attribuée au syndicat
+# nom_syndicat → le nom de chaque structure issu du dictionnaire
+# quotite_syndicat → la quotité de décharge attribuée au syndicat
+# sheet_password → l’éventuel mot de passe de la feuille
 #
 # À partir de ça : on modifie les deux cellules nécessaires et
 # enregistrement en xlsx avec le bon nom de fichier.
 
-def produit_tableau(template_fichier, dossier_export, nomSyndicat,
-                    quotiteSyndicat, sheet_password):
-    fichier_export = nomSyndicat + ".xlsx"
+def produit_tableau(template_fichier, dossier_export, nom_syndicat,
+                    quotite_syndicat, sheet_password):
+    fichier_export = nom_syndicat + ".xlsx"
     template = template_fichier.active
-    template["A64"] = nomSyndicat
-    template["B64"] = quotiteSyndicat
+    template["A64"] = nom_syndicat
+    template["B64"] = quotite_syndicat
     if sheet_password:
         template.protection.password = sheet_password
         template.protection.enable()
